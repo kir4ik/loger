@@ -1,5 +1,10 @@
 # Истрункция по установке
 
+### Настройки в папке _config_
+
+- Нужно создать файл **keys.js** (пример - **keys.example.js**)
+- Ключи для google API брать тут https://developers.google.com/custom-search/v1/overview
+
 #### Перейти в папку проектом и выполнить следующие команды
 
 > **cd client && yarn install && yarn build**

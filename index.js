@@ -4,6 +4,7 @@ import http from 'http';
 import express from 'express';
 import socket from 'socket.io';
 import ss from 'socket.io-stream';
+import googleSearch from './utils/googleSearch';
 import loger from './utils/loger';
 
 const testLog = loger(__dirname + '/test.log');
@@ -27,7 +28,13 @@ io.on('connect', client => {
 
   client.on('json', async data => {
     try {
-      await testLog(`${dataStart} JSON: ${JSON.stringify(data, 2)}`);
+      const { searchInformation } = await googleSearch(data.query);
+
+      await testLog(
+        `${dataStart} JSON: ${JSON.stringify(data)}, About ${
+          searchInformation.formattedTotalResults
+        } results.`
+      );
       client.emit('json', { status: 200 });
     } catch (error) {
       client.emit('json', { status: 500 });
